@@ -1,0 +1,9 @@
+.Button--icon-black .Button__icon{
+  color: #737373;
+}
+
+.Button__icon {
+  display: inline-block;
+  margin-right: 5px;
+  color: crimson;
+}
