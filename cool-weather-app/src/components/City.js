@@ -1,4 +1,5 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
+
 import './City.css';
 import Forecast from './Forecast';
 import List from './List';
@@ -6,25 +7,26 @@ import FavBtn from './FavBtn';
 import faHeart from '@fortawesome/fontawesome-free-solid/faHeart';
 
 export default class City extends Component {
-  isFavorite() {
-    return this.props.favorites.includes(this.props.city);
-  }
+  isFavorite = () => {
+    return this.props.favorites.find(fav => fav.id === this.props.cityId);
+  };
 
   render() {
-    const cityName = this.props.city;
-    const data = this.props.data;
+    if (!this.props.weatherData) return null;
 
+    const {cityId, city, toggleFavorites, weatherData} = this.props;
     return (
       <div className="City">
         <div className="City__data">
-          <h2 className="City__title">Forecast for {cityName}</h2>
+          <h2 className="City__title">Today in { city }</h2>
           <div className="City__add">
-            <FavBtn cb={this.props.toggleCityFav }
-                    city={cityName}
-                    isFavorite={this.isFavorite()} />
+            <FavBtn cb={toggleFavorites}
+                    city={city}
+                    cityId={cityId}
+                    isFavorite={this.isFavorite()}/>
           </div>
-          <Forecast location={cityName} current={ data } />
-          <a href="" className="days-link">Check { cityName }'s forecast for 5 more days</a>
+          <Forecast location={city} current={weatherData.weather.current} />
+          <a href="" className="days-link">Check {city}'s forecast for 5 more days</a>
         </div>
         <div className="City__favorites">
           <List title="Your favorites"

@@ -1,42 +1,48 @@
 import React, { Component } from 'react';
 import Search from '../components/Search';
 import Results from '../components/Results';
-import constants from '../constants';
-import axios from 'axios';
+import { addFavAction, selectCity } from '../actions';
+import api from "../api";
+import { connect } from "react-redux";
 
-export default class SearchContainer extends Component {
+const mapDispatchToProps = dispatch => ({
+  addFavorite: (cityId, name) => dispatch(addFavAction(cityId, name)),
+  select: (cityId, name) => dispatch(selectCity(cityId, name))
+});
+
+class SearchContainer extends Component {
   constructor() {
     super();
-    this.state = {
-      query: '',
-      results: []
-    };
+    this.state = {query: '', results: []};
   }
 
   handleUserInput = e => {
-    this.setState({
-      query: e.target.value
+    this.setState({query: e.target.value}, () => {
+      (this.state.query.length > 2) && this.getCities();
     });
-    if (this.state.query.length > 2) {
-      this.getCities();
-    }
+  };
+
+  handleClick = (cityId, name) => {
+    this.props.select(cityId, name);
+    this.props.addFavorite(cityId, name);
+    this.setState({query: '', results: []});
   };
 
   getCities = () => {
-    axios.get(`http://api.apixu.com/v1/search.json?key=${constants.KEY}&q=${this.state.query}`)
-      .then(({ data }) => {
-        this.setState({
-          results: data
-        })
+    api.getCitiesBySearch(this.state.query)
+      .then(({data}) => {
+        this.setState({results: data});
       });
   };
 
   render() {
-   return (
-     <div>
-       <Search placeholder="Find your city" search={this.handleUserInput} />
-       <Results results={this.state.results} />
-     </div>
-   )
+    return (
+      <div>
+        <Search placeholder="Find your city" search={this.handleUserInput}/>
+        <Results results={this.state.results} click={this.handleClick}/>
+      </div>
+    )
   }
 }
+
+export default connect(null, mapDispatchToProps)(SearchContainer)

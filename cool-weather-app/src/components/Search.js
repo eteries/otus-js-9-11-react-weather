@@ -7,7 +7,7 @@ export default class Search extends Component {
       <input
         className="Search"
         placeholder={this.props.placeholder}
-        onChange={this.props.search} />
+        onInput={this.props.search} />
     );
   }
 }

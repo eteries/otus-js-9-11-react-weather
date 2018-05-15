@@ -11,13 +11,20 @@ export default class FavBtn extends Component {
     };
   }
 
+  static getDerivedStateFromProps(nextProps, prevState) {
+    if (nextProps.isFavorite !== prevState.isFavorite) {
+      return ({
+        isFavorite : nextProps.isFavorite
+      });
+    }
+    return prevState;
+
+  }
+
   handleClick = () => {
     if (this.props.cb) {
-      this.props.cb(this.props.city);
+      this.props.cb(this.props.cityId, this.props.city);
     }
-    this.setState({
-      isFavorite: !this.state.isFavorite
-    });
   };
 
   render() {
