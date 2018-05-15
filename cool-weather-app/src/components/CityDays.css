@@ -1,0 +1,15 @@
+.days {
+  display: flex;
+  justify-content: space-between;
+  margin: 20px 0;
+  padding: 0;
+  list-style: none;
+}
+
+.days__day {
+  margin-right: 20px;
+}
+
+.days__date {
+  margin: 10px 0;
+}

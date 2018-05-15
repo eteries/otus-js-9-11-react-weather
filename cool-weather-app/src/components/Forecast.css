@@ -1,0 +1,28 @@
+.Forecast {
+  margin: 10px 10px 10px 0;
+}
+
+.Forecast--cols {
+  display: flex;
+}
+
+.Forecast__left {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.temperature {
+  font-size: 36px;
+  line-height: 36px;
+  float: left;
+  padding-right: 15px;
+}
+
+.wind-arrow {
+  color: crimson;
+  display: inline-block;
+  vertical-align: middle;
+  margin-left: 6px;
+  margin-top: -3px;
+}
