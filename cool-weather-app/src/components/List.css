@@ -1,0 +1,42 @@
+.List__ul {
+  margin: 5px 0;
+  padding: 0;
+  list-style-position: inside;
+  list-style-type: disc;
+  color: orange;
+  text-align: left;
+}
+
+.List__title {
+  padding: 15px 15px 0 0;
+  margin-top: 0;
+  color: crimson;
+  display: flex;
+  align-items: center;
+}
+
+.List__icon {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  color: orange;
+  margin-right: 10px;
+}
+
+.List__item {
+  font-size: .9em;
+  padding-left: 5px;
+  margin-bottom: 5px;
+}
+
+.List__link {
+  color: #333;
+}
+
+.List__text {
+  text-align: center;
+  color: #737373;
+  font-size: .9em;
+  max-width: 180px;
+  line-height: 1.5;
+}

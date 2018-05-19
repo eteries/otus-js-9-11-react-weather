@@ -1,0 +1,29 @@
+.City {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+  margin-bottom: 40px;
+}
+
+.City__title {
+  margin-top: 15px;
+  margin-bottom: 5px;
+  color: crimson;
+}
+
+.City__add {
+  margin-bottom: 20px;
+}
+
+.City__data {
+  flex: 1;
+}
+
+.City__favorites {
+  text-align: right;
+}
+
+.days-link {
+  display: block;
+  margin: 15px 0;
+}
