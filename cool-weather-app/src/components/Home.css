@@ -4,13 +4,17 @@
 
 .Home__search, .Home__choose {
   text-align: center;
-  margin: 25px 0;
+  margin: 30px 0;
 }
+
+.Home__choose {
+  margin-bottom: 10px;
+ }
 
 .Home__list {
   display: flex;
   justify-content: space-between;
-  margin: 20px 10px;
+  margin: 0 10px;
   padding: 0;
   list-style: none;
 }

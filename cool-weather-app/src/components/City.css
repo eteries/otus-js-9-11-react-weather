@@ -1,10 +1,12 @@
 .City {
   display: flex;
   justify-content: space-between;
+  margin-top: 20px;
   margin-bottom: 40px;
 }
 
 .City__title {
+  margin-top: 15px;
   margin-bottom: 5px;
   color: crimson;
 }

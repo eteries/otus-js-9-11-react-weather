@@ -6,3 +6,7 @@
   border: 2px solid crimson;
   border-radius: 3px;
 }
+
+.Search:focus {
+  outline: none;
+}
