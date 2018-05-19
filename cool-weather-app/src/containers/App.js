@@ -10,6 +10,7 @@ import Header from '../components/Header';
 import '../components/Header.css';
 import HomeContainer from './HomeContainer';
 import CityContainer from './CityContainer';
+import { BrowserRouter, Switch, Route } from "react-router-dom";
 
 const logger = createLogger();
 
@@ -26,9 +27,18 @@ export default class App extends Component {
         <div>
           <Header/>
           <div className="container">
-            <HomeContainer />
-            <CityContainer for='today' />
-            <CityContainer for='forecast' />
+
+            <BrowserRouter>
+              <div className='content'>
+                <Switch>
+                  <Route exact path='/' component={HomeContainer} />
+                  <Route path='/city/:id/:forecast(forecast)?' component={CityContainer} />
+                  <Route render={function () {
+                    return <p>Not Found</p>
+                  }} />
+                </Switch>
+              </div>
+            </BrowserRouter>
           </div>
         </div>
       </Provider>

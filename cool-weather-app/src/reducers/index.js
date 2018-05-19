@@ -52,23 +52,6 @@ const cities = (state=[], action) => {
   }
 };
 
-const current = (state={id: 2182456,name: "Saint-Petersburg"}, action) => {
-  switch (action.type) {
+const weatherApp = combineReducers({ favorites, cities });
 
-    case 'SELECT_CITY': {
-      return {
-        id: action.id,
-        name: action.name
-      };
-    }
-
-    default: {
-      return state;
-    }
-
-  }
-};
-
-const weatherApp = combineReducers({ favorites, cities, current });
-
-export { weatherApp, favorites, cities, current };
+export { weatherApp, favorites, cities };

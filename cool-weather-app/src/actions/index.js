@@ -4,8 +4,6 @@ export const toggleFav = (id, name) => ({type: 'TOGGLE_FAV', id, name});
 
 export const addFavAction = (id, name) => ({type: 'ADD_FAV', id, name});
 
-export const selectCity = (id, name) => ({type: 'SELECT_CITY', id, name});
-
 export const fetchWeather = id => dispatch => {
   dispatch({type: 'MAKE_REQUEST'});
 

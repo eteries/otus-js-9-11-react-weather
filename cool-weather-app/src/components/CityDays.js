@@ -35,6 +35,8 @@ export default class CityDays extends Component {
             </li>
             )}
           </ul>
+          <a href={`/city/${cityId}`} className="days-link">Check {city}'s today weather</a>
+          <a href="/" className="days-link">Choose another city</a>
         </div>
       </div>
     );

@@ -18,7 +18,7 @@ export default class City extends Component {
     return (
       <div className="City">
         <div className="City__data">
-          <h2 className="City__title">Today in { city }</h2>
+          <h2 className="City__title">Today in {city}</h2>
           <div className="City__add">
             <FavBtn cb={toggleFavorites}
                     city={city}
@@ -26,7 +26,8 @@ export default class City extends Component {
                     isFavorite={this.isFavorite()}/>
           </div>
           <Forecast location={city} current={weatherData.weather.current} />
-          <a href="" className="days-link">Check {city}'s forecast for 5 more days</a>
+          <a href={`/city/${cityId}/forecast`} className="days-link">Check {city}'s forecast for 5 more days</a>
+          <a href='/' className="days-link">Choose another city</a>
         </div>
         <div className="City__favorites">
           <List title="Your favorites"

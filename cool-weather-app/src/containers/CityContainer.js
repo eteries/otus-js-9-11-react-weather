@@ -2,21 +2,25 @@ import React, { Component } from 'react';
 import City from '../components/City';
 import CityDays from '../components/CityDays';
 import { connect } from 'react-redux';
-import { toggleFav, fetchWeather, selectCity } from '../actions';
+import { toggleFav, fetchWeather } from '../actions';
+import api from "../api";
 
 const mapStateToProps = state => ({
   favorites: state.favorites || [],
-  cities: state.cities,
-  current: state.current
+  cities: state.cities
 });
 
 const mapDispatchToProps = dispatch => ({
   toggleFavorites: (cityId, name) => dispatch(toggleFav(cityId, name)),
-  fetchWeather: cityId => dispatch(fetchWeather(cityId)),
-  select: (cityId, name) => dispatch(selectCity(cityId, name))
+  fetchWeather: cityId => dispatch(fetchWeather(cityId))
 });
 
 class CityContainer extends Component {
+  state = {
+    city: '',
+    id: null,
+    isFetching: true
+  };
 
   shouldFetch = (cities, cityId) => {
     const cityCached = cities[cityId];
@@ -26,11 +30,39 @@ class CityContainer extends Component {
   };
 
   updateSelectedWeather = () => {
-    this.shouldFetch(this.props.cities, this.props.current.id) && this.props.fetchWeather(this.props.current.id);
+    this.shouldFetch(this.props.cities, this.state.id) && this.props.fetchWeather(this.state.id);
+  };
+
+  getCity = (id) => {
+    api.getCityNameByCityId(id)
+      .then(({data}) => {
+
+        const city = data.find(c => c.id === +id);
+        if(!city) {
+          this.setState({isFetching: false});
+          return;
+        }
+
+        this.setState({
+          city: city.name.split(',')[0],
+          id: city.id,
+          isFetching: false
+        });
+      })
+      .then(() => {
+        if(this.state.id) this.updateSelectedWeather();
+      })
   };
 
   componentDidMount() {
-    this.props.select(this.props.current.id, this.props.current.name);
+    if (this.props.match.params.id) {
+      this.for = 'today';
+      this.getCity(this.props.match.params.id);
+    }
+
+    if (this.props.match.params.forecast) {
+      this.for = 'forecast';
+    }
   }
 
   componentDidUpdate() {
@@ -39,33 +71,33 @@ class CityContainer extends Component {
   }
 
   render() {
-    const {current, cities, favorites, toggleFavorites} = this.props;
-    const weather = cities[current.id];
+    const {cities, favorites, toggleFavorites} = this.props;
+    const weather = cities[this.state.id];
 
-    if (this.props.cities.isFetching) {
+    if (this.props.cities.isFetching || this.state.isFetching) {
       return (
         <div className="loader">LOADING</div>
       )
     }
 
-    if (this.props.for === 'today') {
+    if (this.for === 'today') {
       return (
-        <City city={current.name} cityId={current.id}
+        <City city={this.state.city} cityId={this.state.id}
               favorites={favorites} toggleFavorites={toggleFavorites}
               weatherData={weather} />
       )
     }
 
-    if (this.props.for === 'forecast') {
+    if (this.for === 'forecast') {
       return (
-        <CityDays city={current.name} cityId={current.id}
+        <CityDays city={this.state.city} cityId={this.state.id}
                   favorites={favorites } toggleFavorites={toggleFavorites}
                   weatherData={weather} />
 
       )
     }
 
-    return null;
+    return (<div>No data</div>);
   }
 }
 

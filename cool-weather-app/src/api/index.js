@@ -14,8 +14,13 @@ export function getCitiesBySearch(query) {
   return axios.get(`${URL}search.json?key=${KEY}&q=${query}`);
 }
 
+export function getCityNameByCityId(id) {
+  return axios.get(`${URL}search.json?key=${KEY}&q=id:${id}`);
+}
+
 export default {
   getWeatherByCityId,
   getForecastByCityId,
-  getCitiesBySearch
+  getCitiesBySearch,
+  getCityNameByCityId
 }

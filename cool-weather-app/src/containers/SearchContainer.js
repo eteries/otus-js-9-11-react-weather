@@ -1,13 +1,12 @@
 import React, { Component } from 'react';
 import Search from '../components/Search';
 import Results from '../components/Results';
-import { addFavAction, selectCity } from '../actions';
+import { addFavAction } from '../actions';
 import api from "../api";
 import { connect } from "react-redux";
 
 const mapDispatchToProps = dispatch => ({
-  addFavorite: (cityId, name) => dispatch(addFavAction(cityId, name)),
-  select: (cityId, name) => dispatch(selectCity(cityId, name))
+  addFavorite: (cityId, name) => dispatch(addFavAction(cityId, name))
 });
 
 class SearchContainer extends Component {
@@ -23,7 +22,6 @@ class SearchContainer extends Component {
   };
 
   handleClick = (cityId, name) => {
-    this.props.select(cityId, name);
     this.props.addFavorite(cityId, name);
     this.setState({query: '', results: []});
   };

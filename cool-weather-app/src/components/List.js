@@ -1,12 +1,8 @@
 import React, { Component } from 'react';
 import './List.css';
 import FontAwesomeIcon from '@fortawesome/react-fontawesome';
-import { connect } from 'react-redux';
-import { selectCity } from '../actions';
 
-
-class List extends Component {
-
+export default class List extends Component {
   render() {
     return (
       <section>
@@ -19,8 +15,7 @@ class List extends Component {
         {this.props.items.map(
           (item, index) =>
             <li key={index} className="List__item">
-              <a className="List__link" href=""
-                 onClick={(e) => {e.preventDefault(); this.props.select(item.id, item.name)}}>
+              <a className="List__link" href={`/city/${item.id}`}>
                 {item.name}
               </a>
             </li>
@@ -30,5 +25,3 @@ class List extends Component {
     );
   }
 }
-
-export default connect(null, dispatch => ({select: (cityId, name) => dispatch(selectCity(cityId, name))}))(List);
